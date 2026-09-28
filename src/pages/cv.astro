@@ -128,19 +128,29 @@ const skillGroups = [
     <div class="text-3xl w-full font-bold">Languages</div>
   </div>
 
-  <ul class="list-disc mx-6 mb-10 grid gap-2">
-    <li><b>English</b>: Advanced (C1)</li>
-    <li><b>German</b>: Intermediate (B1), currently pursuing B2</li>
-  </ul>
+  <div class="flex flex-wrap gap-2 mb-10">
+    <span class="inline-flex items-center rounded-full border border-base-300 bg-base-200 px-3.5 py-1 text-sm font-medium transition-colors hover:bg-base-300 hover:border-base-content/30">English · Advanced (C1)</span>
+    <span class="inline-flex items-center rounded-full border border-base-300 bg-base-200 px-3.5 py-1 text-sm font-medium transition-colors hover:bg-base-300 hover:border-base-content/30">German · Intermediate (B1), pursuing B2</span>
+  </div>
 
   <div class="mb-5">
     <div class="text-3xl w-full font-bold">Interests & Soft Skills</div>
   </div>
 
-  <ul class="list-disc mx-6 mb-10 grid gap-2">
-    <li><b>Interests</b>: Open Source, System Design, Hackathons</li>
-    <li><b>Soft skills</b>: Problem-solving, teamwork, clean code, agile methods</li>
-  </ul>
+  <div class="grid gap-4 mb-10">
+    <div>
+      <div class="font-semibold mb-2">Interests</div>
+      <div class="flex flex-wrap gap-2">
+        {["Open Source", "System Design", "Hackathons"].map((item) => <span class="inline-flex items-center rounded-full border border-base-300 bg-base-200 px-3.5 py-1 text-sm font-medium transition-colors hover:bg-base-300 hover:border-base-content/30">{item}</span>)}
+      </div>
+    </div>
+    <div>
+      <div class="font-semibold mb-2">Soft skills</div>
+      <div class="flex flex-wrap gap-2">
+        {["Problem-solving", "Teamwork", "Clean code", "Agile methods"].map((item) => <span class="inline-flex items-center rounded-full border border-base-300 bg-base-200 px-3.5 py-1 text-sm font-medium transition-colors hover:bg-base-300 hover:border-base-content/30">{item}</span>)}
+      </div>
+    </div>
+  </div>
 
   <div class="mb-5">
     <div class="text-3xl w-full font-bold">Reference</div>
