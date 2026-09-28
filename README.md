@@ -1,6 +1,6 @@
 # Imam Hossain Roni: Portfolio
 
-Personal portfolio website of **Imam Hossain Roni**, a Software Engineer based in Frankfurt am Main, Germany, focused on scalable backend systems and AI-powered applications.
+Personal portfolio website of **Imam Hossain Roni**, a Full-Stack Software Engineer based in Frankfurt am Main, Germany, focused on AI-powered applications, DevOps and cloud.
 
 🌐 **Live site:** [imamhossainroni.me](https://imamhossainroni.me)
 
