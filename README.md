@@ -50,7 +50,3 @@ Every push to `main` triggers `.github/workflows/deploy.yml`, which builds the s
 - LinkedIn: [linkedin.com/in/imamhossainroni](https://www.linkedin.com/in/imamhossainroni)
 - GitHub: [github.com/ImamHossainRoni](https://github.com/ImamHossainRoni)
 - Stack Overflow: [imam-hossain-roni](https://stackoverflow.com/users/6342245/imam-hossain-roni)
-
-## Credits
-
-Based on the [Astrofy](https://github.com/manuelernestog/astrofy) template by Manuel Ernesto Garcia, used under the MIT License (see [LICENSE](LICENSE)).
