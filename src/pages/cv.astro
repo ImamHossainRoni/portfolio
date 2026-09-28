@@ -1,0 +1,152 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import TimeLineElement from "../components/cv/TimeLine.astro";
+
+const skillGroups = [
+  { name: "Languages", items: ["Python", "C#", "JavaScript", "TypeScript", "Bash"] },
+  { name: "Backend", items: ["Django", "Django REST Framework", "FastAPI", "ASP.NET Core", "SQLAlchemy", "Celery"] },
+  { name: "AI & LLM", items: ["LLMs", "RAG", "MCP", "Embeddings", "Vector Search", "Semantic Search"] },
+  { name: "Frontend", items: ["React", "Vue", "Angular"] },
+  { name: "Databases & Messaging", items: ["PostgreSQL", "MySQL", "Redis", "RabbitMQ"] },
+  { name: "Cloud & DevOps", items: ["AWS", "Azure", "Docker", "Kubernetes", "CI/CD", "Nginx", "Linux (Debian)", "Git", "Grafana", "Prometheus"] },
+];
+---
+
+<BaseLayout title="Resume" sideBarActiveItemID="cv">
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Profile</div>
+  </div>
+
+  <div class="mb-10 text-justify">
+    Software Engineer with 6+ years of experience building scalable full-stack systems, SaaS platforms, and AI-powered
+    applications. Strong expertise in Python, Django, FastAPI, C#, ASP.NET Core, and cloud technologies, with hands-on
+    experience in LLMs, RAG, semantic search, vector databases, and MCP integrations. Experienced across AI, energy
+    trading, battery storage, ERP, and enterprise software, with a focus on turning complex business problems into
+    reliable, scalable solutions.
+  </div>
+
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Experience</div>
+  </div>
+
+  <div class="time-line-container mb-10">
+    <TimeLineElement
+      title="Software Engineer (Work-Study) at Flowvy"
+      subtitle="08/2025 – 04/2026 · Chemnitz, Germany"
+    >
+      <ul class="list-disc ml-5 grid gap-1">
+        <li>Developed an AI-powered business platform that turns company knowledge and documents into searchable, contextual information, helping teams reduce manual research and make faster, information-driven decisions.</li>
+        <li>Connected AI with real business workflows by integrating project management, calendar, email, and ERP systems through an MCP-based integration layer, enabling LLMs to retrieve business context and execute context-aware actions.</li>
+        <li>Engineered scalable AI backend services using Django, RAG, embeddings, vector search, and automated data pipelines, supporting reliable knowledge retrieval, document processing, and AI-assisted workflows.</li>
+      </ul>
+    </TimeLineElement>
+    <TimeLineElement
+      title="Software Engineer (Remote) at TESVOLT AG"
+      subtitle="07/2023 – 07/2025 · Berlin, Germany"
+    >
+      <ul class="list-disc ml-5 grid gap-1">
+        <li>Developed software for monitoring battery energy storage systems (BESS), providing visibility into SOC, SOH, cell/module voltages, and thermal performance to support system health monitoring and operational decisions.</li>
+        <li>Built a Python-based BESS simulation and recommendation system to analyze battery behavior under customer demand and operational scenarios, supporting optimized charging/discharging strategies and BESS configuration recommendations.</li>
+        <li>Implemented software supporting energy trading decisions by integrating real-time battery and market data, including a trading dashboard updated every 5 seconds to provide real-time visibility into market activity and battery operation.</li>
+        <li>Engineered backend services and APIs for energy-related applications, supporting data exchange between storage systems, business services, and customer-facing platforms.</li>
+      </ul>
+    </TimeLineElement>
+    <TimeLineElement
+      title="Software Engineer at iQuantile LLC"
+      subtitle="12/2021 – 06/2023 · Dhaka, Bangladesh"
+    >
+      <ul class="list-disc ml-5 grid gap-1">
+        <li>Developed and scaled Quantibly, a SaaS platform for NGO data management, building backend services and APIs that centralized operational data and streamlined data-driven workflows.</li>
+        <li>Contributed across frontend development, deployment, and application monitoring, improving data accessibility, system reliability, and smooth day-to-day platform operations.</li>
+      </ul>
+    </TimeLineElement>
+    <TimeLineElement
+      title="Software Engineer at Qtec Solution Ltd."
+      subtitle="06/2020 – 12/2021 · Dhaka, Bangladesh"
+    >
+      <ul class="list-disc ml-5 grid gap-1">
+        <li>Developed software for legal, e-commerce, payment, and retail businesses, helping teams automate everyday tasks, manage transactions, and access business information more efficiently.</li>
+        <li>Built a location-based survey and data-collection system with real-time monitoring and enhanced logging, helping teams collect reliable field data and identify issues faster.</li>
+        <li>Deployed and maintained cloud-based applications on DigitalOcean, keeping systems reliable, available, and ready to scale as usage increased.</li>
+      </ul>
+    </TimeLineElement>
+    <TimeLineElement
+      title="Jr. Software Engineer at Divine IT Ltd."
+      subtitle="04/2019 – 06/2020 · Dhaka, Bangladesh"
+    >
+      <ul class="list-disc ml-5 grid gap-1">
+        <li>Enhanced ERP and VAT management software used by 1M+ end users, supporting core business operations and local tax compliance.</li>
+        <li>Developed business modules for fleet, support tickets, warranty, inventory, and product management, automating day-to-day workflows.</li>
+        <li>Adapted the platform across multiple database engines, improving compatibility and supporting diverse customer requirements.</li>
+      </ul>
+    </TimeLineElement>
+  </div>
+
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Education</div>
+  </div>
+
+  <div class="time-line-container grid gap-4 mb-10">
+    <TimeLineElement
+      title="M.Sc. Automotive Software Engineering"
+      subtitle="10/2024 – Present at Technische Universität Chemnitz, Chemnitz, Germany"
+    />
+    <TimeLineElement
+      title="B.Sc. (Hons) Computer Science & Engineering"
+      subtitle="01/2015 – 06/2020 at IUBAT – International University of Business Agriculture and Technology, Dhaka, Bangladesh"
+    />
+  </div>
+
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Skills</div>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-4 mb-10">
+    {
+      skillGroups.map((group) => (
+        <div class="rounded-lg bg-base-200 p-5">
+          <h3 class="font-bold text-lg mb-3">{group.name}</h3>
+          <div class="flex flex-wrap gap-2">
+            {group.items.map((item) => (
+              <span class="badge badge-outline badge-lg py-3">{item}</span>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Honors & Awards</div>
+  </div>
+
+  <ul class="list-disc mx-6 mb-10 grid gap-2">
+    <li>Champion, EATL – Prothom Alo Apps Contest 2016</li>
+  </ul>
+
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Languages</div>
+  </div>
+
+  <ul class="list-disc mx-6 mb-10 grid gap-2">
+    <li><b>English</b>: Advanced (C1)</li>
+    <li><b>German</b>: Intermediate (B1), currently pursuing B2</li>
+  </ul>
+
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Interests & Soft Skills</div>
+  </div>
+
+  <ul class="list-disc mx-6 mb-10 grid gap-2">
+    <li><b>Interests</b>: Open Source, System Design, Hackathons</li>
+    <li><b>Soft skills</b>: Problem-solving, teamwork, clean code, agile methods</li>
+  </ul>
+
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Reference</div>
+  </div>
+
+  <div class="mb-10">
+    Wolf Bosse, Digital Product Owner, TESVOLT AG. Contact details available on request.
+  </div>
+</BaseLayout>

@@ -1,0 +1,79 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HorizontalCard from "../components/HorizontalCard.astro";
+---
+
+<BaseLayout title="Projects" sideBarActiveItemID="projects">
+  <div>
+    <div class="text-3xl w-full font-bold mb-5">AI & Knowledge Systems</div>
+  </div>
+
+  <HorizontalCard
+    title="AI-Powered Business Knowledge Platform"
+    desc="Flowvy, 2025–2026. A platform that turns company knowledge and documents into searchable, contextual information, so teams spend less time on manual research and make decisions faster. Built with Django, RAG, embeddings, vector search and automated data pipelines."
+    url="/cv"
+    target="_self"
+    badge="AI"
+  />
+  <div class="divider my-0"></div>
+  <HorizontalCard
+    title="MCP Integration Layer for Business Workflows"
+    desc="Flowvy, 2025–2026. Connected LLMs to project management, calendar, email and ERP systems through an MCP-based integration layer, so the AI can retrieve business context and carry out context-aware actions."
+    url="/cv"
+    target="_self"
+    badge="MCP"
+  />
+
+  <div>
+    <div class="text-3xl w-full font-bold mb-5 mt-10">Energy & Battery Storage</div>
+  </div>
+
+  <HorizontalCard
+    title="BESS Monitoring Software"
+    desc="TESVOLT AG, 2023–2025. Monitoring for battery energy storage systems that shows SOC, SOH, cell and module voltages, and thermal performance to support system health checks and operational decisions."
+    url="/cv"
+    target="_self"
+  />
+  <div class="divider my-0"></div>
+  <HorizontalCard
+    title="BESS Simulation & Recommendation System"
+    desc="TESVOLT AG, 2023–2025. A Python-based system that simulates battery behavior under customer demand and operating scenarios, and recommends charging/discharging strategies and BESS configurations."
+    url="/cv"
+    target="_self"
+    badge="Python"
+  />
+  <div class="divider my-0"></div>
+  <HorizontalCard
+    title="Real-Time Energy Trading Dashboard"
+    desc="TESVOLT AG, 2023–2025. Combines real-time battery and market data to support energy trading decisions, with a dashboard that refreshes every 5 seconds."
+    url="/cv"
+    target="_self"
+  />
+
+  <div>
+    <div class="text-3xl w-full font-bold mb-5 mt-10">SaaS & Enterprise Software</div>
+  </div>
+
+  <HorizontalCard
+    title="Quantibly: NGO Data Management SaaS"
+    desc="iQuantile LLC, 2021–2023. Backend services and APIs that centralize operational data for NGOs, plus work on the frontend, deployment and application monitoring."
+    url="/cv"
+    target="_self"
+    badge="SaaS"
+  />
+  <div class="divider my-0"></div>
+  <HorizontalCard
+    title="Location-Based Survey & Data Collection System"
+    desc="Qtec Solution Ltd., 2020–2021. Field data collection with real-time monitoring and enhanced logging, deployed and maintained on DigitalOcean."
+    url="/cv"
+    target="_self"
+  />
+  <div class="divider my-0"></div>
+  <HorizontalCard
+    title="ERP & VAT Management Software"
+    desc="Divine IT Ltd., 2019–2020. ERP and VAT software used by 1M+ end users. Built modules for fleet, support tickets, warranty, inventory and product management, and adapted the platform to run on multiple database engines."
+    url="/cv"
+    target="_self"
+    badge="1M+ users"
+  />
+</BaseLayout>

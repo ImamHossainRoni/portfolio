@@ -1,0 +1,110 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const focusAreas = [
+  {
+    title: "AI & LLM Systems",
+    desc: "RAG pipelines, embeddings, vector search and MCP integrations that connect LLMs to real business workflows.",
+  },
+  {
+    title: "Energy & Battery Storage",
+    desc: "BESS monitoring, simulation and real-time energy trading software built on live battery and market data.",
+  },
+  {
+    title: "Scalable Backends & SaaS",
+    desc: "APIs and services with Django, FastAPI and ASP.NET Core, deployed with Docker, Kubernetes and CI/CD.",
+  },
+];
+
+const selectedWork = [
+  {
+    company: "Flowvy",
+    period: "2025 – 2026",
+    title: "AI-Powered Business Knowledge Platform",
+    desc: "Turns company knowledge and documents into searchable, contextual information. An MCP-based integration layer lets LLMs work with project management, calendar, email and ERP systems.",
+    tags: ["Django", "RAG", "Vector Search", "MCP"],
+  },
+  {
+    company: "TESVOLT AG",
+    period: "2023 – 2025",
+    title: "Battery Storage Monitoring & Energy Trading",
+    desc: "Monitoring for SOC, SOH, cell voltages and thermals, a Python simulation and recommendation engine, and a trading dashboard that refreshes every 5 seconds.",
+    tags: ["Python", "Real-time Data", "APIs"],
+  },
+  {
+    company: "iQuantile LLC",
+    period: "2021 – 2023",
+    title: "Quantibly: NGO Data Management SaaS",
+    desc: "Backend services and APIs that centralize operational data for NGOs, plus frontend, deployment and monitoring work.",
+    tags: ["SaaS", "Backend", "Monitoring"],
+  },
+];
+
+const coreStack = ["Python", "Django", "FastAPI", "C#", "ASP.NET Core", "TypeScript", "PostgreSQL", "Redis", "Docker", "Kubernetes", "AWS", "Azure"];
+---
+
+<BaseLayout sideBarActiveItemID="home">
+  <!-- Hero -->
+  <section class="mt-5 pb-10">
+    <h1 class="text-5xl font-bold leading-tight">Imam Hossain Roni</h1>
+    <p class="text-2xl font-semibold mt-3 opacity-80">
+      I build scalable backend systems and AI-powered applications.
+    </p>
+    <p class="text-lg mt-5 leading-relaxed opacity-80 max-w-2xl">
+      6+ years delivering full-stack systems, SaaS platforms and LLM-based products across AI, energy trading, battery
+      storage and enterprise software, turning complex business problems into reliable, scalable solutions.
+    </p>
+    <p class="mt-8 text-sm font-semibold uppercase tracking-widest opacity-60">Software Engineer · Frankfurt am Main, Germany</p>
+  </section>
+
+  <!-- Focus areas -->
+  <section class="mb-14">
+    <h2 class="text-2xl font-bold mb-6">What I work on</h2>
+    <div class="grid md:grid-cols-3 gap-4">
+      {
+        focusAreas.map((area) => (
+          <div class="rounded-lg border border-base-300 p-5">
+            <h3 class="font-semibold text-lg mb-2">{area.title}</h3>
+            <p class="text-sm leading-relaxed opacity-75">{area.desc}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Selected work -->
+  <section class="mb-14">
+    <div class="flex items-baseline justify-between mb-6">
+      <h2 class="text-2xl font-bold">Selected work</h2>
+      <a href="/projects" class="text-sm font-semibold opacity-70 hover:opacity-100 hover:underline">All projects →</a>
+    </div>
+    <div class="divide-y divide-base-300 border-y border-base-300">
+      {
+        selectedWork.map((work) => (
+          <article class="py-6">
+            <div class="flex flex-wrap items-baseline justify-between gap-2">
+              <h3 class="text-lg font-semibold">{work.title}</h3>
+              <span class="text-sm opacity-60">
+                {work.company} · {work.period}
+              </span>
+            </div>
+            <p class="mt-2 leading-relaxed opacity-80">{work.desc}</p>
+            <div class="mt-3 flex flex-wrap gap-2">
+              {work.tags.map((tag) => (
+                <span class="badge badge-outline">{tag}</span>
+              ))}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Core stack -->
+  <section class="mb-6">
+    <h2 class="text-2xl font-bold mb-6">Core stack</h2>
+    <div class="flex flex-wrap gap-2">
+      {coreStack.map((item) => <span class="badge badge-lg badge-outline py-3">{item}</span>)}
+    </div>
+  </section>
+</BaseLayout>
