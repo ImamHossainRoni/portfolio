@@ -17,6 +17,11 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Serve from https://imamhossainroni.github.io/portfolio/ until the custom domain is set up.
+    # When switching to imamhossainroni.me, delete these env lines.
+    env:
+      SITE_URL: https://imamhossainroni.github.io
+      BASE_PATH: /portfolio
     steps:
       - name: Checkout
         uses: actions/checkout@v4
