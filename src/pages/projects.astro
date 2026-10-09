@@ -1,70 +1,127 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import HorizontalCard from "../components/HorizontalCard.astro";
-import withBase from "../lib/withBase";
+
+const groups = [
+  {
+    name: "AI & Knowledge Systems",
+    projects: [
+      {
+        title: "AI-Powered Business Knowledge Platform",
+        org: "Flowvy",
+        period: "2025–2026",
+        desc: "A platform that turns company knowledge and documents into searchable, contextual information, so teams spend less time on manual research and make decisions faster.",
+        tags: ["Django", "RAG", "Embeddings", "Vector Search", "Data Pipelines"],
+      },
+      {
+        title: "MCP Integration Layer for Business Workflows",
+        org: "Flowvy",
+        period: "2025–2026",
+        desc: "Connected LLMs to project management, calendar, email and ERP systems through an MCP-based integration layer, so the AI can retrieve business context and carry out context-aware actions.",
+        tags: ["MCP", "LLMs", "Integrations"],
+      },
+    ],
+  },
+  {
+    name: "Energy & Battery Storage",
+    projects: [
+      {
+        title: "BESS Monitoring Software",
+        org: "TESVOLT AG",
+        period: "2023–2025",
+        desc: "Monitoring for battery energy storage systems that shows SOC, SOH, cell and module voltages, and thermal performance to support system health checks and operational decisions.",
+        tags: ["Python", "Monitoring", "APIs"],
+      },
+      {
+        title: "BESS Simulation & Recommendation System",
+        org: "TESVOLT AG",
+        period: "2023–2025",
+        desc: "A Python-based system that simulates battery behavior under customer demand and operating scenarios, and recommends charging/discharging strategies and BESS configurations.",
+        tags: ["Python", "Simulation"],
+      },
+      {
+        title: "Real-Time Energy Trading Dashboard",
+        org: "TESVOLT AG",
+        period: "2023–2025",
+        desc: "Combines real-time battery and market data to support energy trading decisions, with a dashboard that refreshes every 5 seconds.",
+        tags: ["Real-time Data", "Energy Markets"],
+      },
+    ],
+  },
+  {
+    name: "SaaS & Enterprise Software",
+    projects: [
+      {
+        title: "Quantibly: NGO Data Management SaaS",
+        org: "iQuantile LLC",
+        period: "2021–2023",
+        desc: "Backend services and APIs that centralize operational data for NGOs, plus work on the frontend, deployment and application monitoring.",
+        tags: ["SaaS", "Backend", "Monitoring"],
+      },
+      {
+        title: "Location-Based Survey & Data Collection System",
+        org: "Qtec Solution Ltd.",
+        period: "2020–2021",
+        desc: "Field data collection with real-time monitoring and enhanced logging, deployed and maintained on DigitalOcean.",
+        tags: ["Geolocation", "Logging", "DigitalOcean"],
+      },
+      {
+        title: "ERP & VAT Management Software",
+        org: "Divine IT Ltd.",
+        period: "2019–2020",
+        desc: "ERP and VAT software used by 1M+ end users. Built modules for fleet, support tickets, warranty, inventory and product management, and adapted the platform to run on multiple database engines.",
+        tags: ["ERP", "Multi-database", "1M+ users"],
+      },
+    ],
+  },
+];
+
+// Running project number across groups, for the 01–08 index.
+const offsets = groups.map((_, g) => groups.slice(0, g).reduce((n, gr) => n + gr.projects.length, 0));
 ---
 
-<BaseLayout title="Projects" sideBarActiveItemID="projects">
-  <div>
-    <div class="text-3xl w-full font-bold mb-5">AI & Knowledge Systems</div>
-  </div>
+<BaseLayout title="Work | Imam Hossain Roni" sideBarActiveItemID="projects" wide>
+  <section class="wrap pt-12 md:pt-20">
+    <p class="eyebrow mb-6" data-reveal>Work · 2019 — now</p>
+    <h1 class="display text-[clamp(3.2rem,11vw,10rem)]" data-reveal style="--d:1">
+      Selected <em>projects</em>
+    </h1>
+    <p class="mt-8 max-w-2xl text-lg md:text-xl text-muted leading-relaxed" data-reveal style="--d:2">
+      Eight systems across three domains: AI that understands a company's own knowledge, software that keeps
+      battery storage healthy and profitable, and the SaaS and ERP platforms where it all started.
+    </p>
+  </section>
 
-  <HorizontalCard
-    title="AI-Powered Business Knowledge Platform"
-    desc="Flowvy, 2025–2026. A platform that turns company knowledge and documents into searchable, contextual information, so teams spend less time on manual research and make decisions faster. Built with Django, RAG, embeddings, vector search and automated data pipelines."
-    url={withBase("/cv")}
-    target="_self"
-  />
-  <HorizontalCard
-    title="MCP Integration Layer for Business Workflows"
-    desc="Flowvy, 2025–2026. Connected LLMs to project management, calendar, email and ERP systems through an MCP-based integration layer, so the AI can retrieve business context and carry out context-aware actions."
-    url={withBase("/cv")}
-    target="_self"
-  />
-
-  <div>
-    <div class="text-3xl w-full font-bold mb-5 mt-10">Energy & Battery Storage</div>
-  </div>
-
-  <HorizontalCard
-    title="BESS Monitoring Software"
-    desc="TESVOLT AG, 2023–2025. Monitoring for battery energy storage systems that shows SOC, SOH, cell and module voltages, and thermal performance to support system health checks and operational decisions."
-    url={withBase("/cv")}
-    target="_self"
-  />
-  <HorizontalCard
-    title="BESS Simulation & Recommendation System"
-    desc="TESVOLT AG, 2023–2025. A Python-based system that simulates battery behavior under customer demand and operating scenarios, and recommends charging/discharging strategies and BESS configurations."
-    url={withBase("/cv")}
-    target="_self"
-  />
-  <HorizontalCard
-    title="Real-Time Energy Trading Dashboard"
-    desc="TESVOLT AG, 2023–2025. Combines real-time battery and market data to support energy trading decisions, with a dashboard that refreshes every 5 seconds."
-    url={withBase("/cv")}
-    target="_self"
-  />
-
-  <div>
-    <div class="text-3xl w-full font-bold mb-5 mt-10">SaaS & Enterprise Software</div>
-  </div>
-
-  <HorizontalCard
-    title="Quantibly: NGO Data Management SaaS"
-    desc="iQuantile LLC, 2021–2023. Backend services and APIs that centralize operational data for NGOs, plus work on the frontend, deployment and application monitoring."
-    url={withBase("/cv")}
-    target="_self"
-  />
-  <HorizontalCard
-    title="Location-Based Survey & Data Collection System"
-    desc="Qtec Solution Ltd., 2020–2021. Field data collection with real-time monitoring and enhanced logging, deployed and maintained on DigitalOcean."
-    url={withBase("/cv")}
-    target="_self"
-  />
-  <HorizontalCard
-    title="ERP & VAT Management Software"
-    desc="Divine IT Ltd., 2019–2020. ERP and VAT software used by 1M+ end users. Built modules for fleet, support tickets, warranty, inventory and product management, and adapted the platform to run on multiple database engines."
-    url={withBase("/cv")}
-    target="_self"
-  />
+  {
+    groups.map((group, g) => (
+      <section class="wrap mt-24 md:mt-32">
+        <div class="grid gap-6 md:grid-cols-12 mb-8 md:mb-10" data-reveal>
+          <p class="eyebrow md:col-span-1 pt-3">§{g + 1}</p>
+          <h2 class="display text-4xl md:text-6xl md:col-span-11">{group.name}</h2>
+        </div>
+        <ol>
+          {group.projects.map((p, i) => (
+              <li class="row" data-reveal>
+                <article class="grid gap-5 py-9 md:py-11 md:grid-cols-12 md:gap-8">
+                  <span class="row-index eyebrow md:col-span-1 pt-2">{String(offsets[g] + i + 1).padStart(2, "0")}</span>
+                  <div class="md:col-span-6">
+                    <h3 class="row-title display text-[2rem] md:text-[2.75rem] leading-[1.04]">{p.title}</h3>
+                    <p class="mt-4 eyebrow">
+                      {p.org} — {p.period}
+                    </p>
+                  </div>
+                  <div class="md:col-span-5">
+                    <p class="leading-relaxed text-muted">{p.desc}</p>
+                    <div class="mt-5 flex flex-wrap gap-2">
+                      {p.tags.map((t) => (
+                        <span class="chip">{t}</span>
+                      ))}
+                    </div>
+                  </div>
+                </article>
+              </li>
+          ))}
+        </ol>
+      </section>
+    ))
+  }
 </BaseLayout>

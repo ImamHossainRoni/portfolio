@@ -1,8 +1,7 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/Header.astro";
+import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
-import SideBar from "../components/SideBar.astro";
 import { ViewTransitions } from "astro:transitions";
 
 import { SITE_TITLE, SITE_DESCRIPTION, TRANSITION_API } from "../config";
@@ -11,31 +10,50 @@ const {
   image,
   title = SITE_TITLE,
   description = SITE_DESCRIPTION,
-  includeSidebar = true,
   sideBarActiveItemID,
   ogType,
+  // Pages built for the new layout lay out their own full-width sections;
+  // anything else (e.g. the store pages) gets a plain readable column.
+  wide = false,
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" data-theme="lofi">
+<html lang="en">
   <head>
-    <BaseHead title={title} description={description} image={image} , ogType={ogType} />
+    <BaseHead title={title} description={description} image={image} ogType={ogType} />
     {TRANSITION_API && <ViewTransitions />}
   </head>
-  <body>
-    <div class="bg-base-100 drawer lg:drawer-open">
-      <input id="my-drawer" type="checkbox" class="drawer-toggle" />
-      <div class="drawer-content bg-base-100">
-        <Header title={SITE_TITLE} />
-        <div class="md:flex md:justify-center">
-          <main class="p-6 pt-10 lg:max-w-[900px] max-w-[100vw]">
-            <slot />
-          </main>
-        </div>
-        <Footer />
-      </div>
-      {includeSidebar && <SideBar sideBarActiveItemID={sideBarActiveItemID} />}
-    </div>
+  <body class="min-h-screen">
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[70] btn-ink">Skip to content</a>
+    <Nav active={sideBarActiveItemID} />
+    <main id="main">
+      {wide ? <slot /> : <div class="wrap max-w-[900px] pt-10"><slot /></div>}
+    </main>
+    <Footer />
+
+    <script>
+      // Fade sections in as they scroll into view.
+      function reveal() {
+        const els = document.querySelectorAll("[data-reveal]:not(.is-in)");
+        if (!("IntersectionObserver" in window)) {
+          els.forEach((el) => el.classList.add("is-in"));
+          return;
+        }
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                e.target.classList.add("is-in");
+                io.unobserve(e.target);
+              }
+            }
+          },
+          { rootMargin: "0px 0px -8% 0px" },
+        );
+        els.forEach((el) => io.observe(el));
+      }
+      document.addEventListener("astro:page-load", reveal);
+    </script>
   </body>
 </html>

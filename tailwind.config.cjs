@@ -2,12 +2,27 @@
 module.exports = {
 	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
 	theme: {
-		extend: {},
+		extend: {
+			fontFamily: {
+				serif: ['"Instrument Serif"', 'ui-serif', 'Georgia', 'serif'],
+				sans: ['Geist', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+				mono: ['"Geist Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+			},
+			colors: {
+				paper: 'var(--paper)',
+				ink: 'var(--ink)',
+				muted: 'var(--muted)',
+				line: 'var(--line)',
+				accent: 'var(--accent)',
+				raised: 'var(--raised)',
+			},
+		},
 	},
-	plugins: [require("@tailwindcss/typography"),require("daisyui")],
+	plugins: [require("@tailwindcss/typography"), require("daisyui")],
 	daisyui: {
-		themes: true, // true: all themes | false: only light + dark | array: specific themes like this ["light", "dark", "cupcake"]
-		darkTheme: "dark", // name of one of the included themes for dark mode
-		logs: false, // Shows info about daisyUI version and used config in the console when building your CSS
-	  }
+		// Only the legacy store pages still use daisyUI components; the site's own look lives in global.css.
+		themes: ["lofi"],
+		base: false,
+		logs: false,
+	}
 }

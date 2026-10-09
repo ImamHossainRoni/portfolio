@@ -2,36 +2,61 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="Blog" sideBarActiveItemID="blog">
-  <article class="mt-5 max-w-2xl">
-    <h1 class="text-4xl font-bold leading-tight">Why I stopped writing tech blogs</h1>
+<BaseLayout title="Writing | Imam Hossain Roni" sideBarActiveItemID="blog" wide>
+  <article class="wrap pt-12 md:pt-20">
+    <header class="max-w-5xl">
+      <p class="eyebrow mb-6" data-reveal>Writing · A short note</p>
+      <h1 class="display text-[clamp(3rem,8.5vw,7.5rem)]" data-reveal style="--d:1">
+        Why I stopped writing <em>tech blogs</em>
+      </h1>
+    </header>
 
-    <div class="mt-8 text-lg leading-relaxed opacity-80 grid gap-5">
-      <p>
-        In the era of LLMs, I don't think writing tech blogs is as necessary as it once was.
-      </p>
-      <p>
-        There was a time when I'd spend my evenings turning something I had just figured out into a post, hoping it
-        would save someone else a few hours of frustration. Today, anyone can ask an LLM and get a clear, patient
-        explanation in seconds, shaped around exactly where they are stuck.
-      </p>
-      <p>
-        So I stopped writing tutorials. When I write now, I write what I feel: the thoughts that don't fit into a
-        prompt.
-      </p>
-      <p>
-        If you're here to learn something technical, LLMs are good enough. Honestly, they're a wonderful teacher.
-      </p>
-      <p>
-        My earlier writing, and some of my more abstract thoughts, are kept as an archive.
-      </p>
-    </div>
+    <div class="mt-14 md:mt-20 grid gap-10 md:grid-cols-12">
+      <aside class="md:col-span-3 eyebrow leading-loose" data-reveal style="--d:2">
+        <p>By Imam Hossain Roni</p>
+        <p>1 min read</p>
+      </aside>
 
-    <div class="mt-10">
-      <h2 class="text-2xl font-bold mb-4">RIP Abstract Thoughts 🤔</h2>
-      <a class="btn btn-outline" href="https://imamhossainroni.hashnode.dev/" target="_blank" rel="noopener">
-        Read the archive on Hashnode ↗
-      </a>
+      <div
+        class="md:col-span-7 text-lg md:text-xl leading-[1.75] grid gap-6 text-pretty [&>p:first-child]:first-letter:float-left [&>p:first-child]:first-letter:font-serif [&>p:first-child]:first-letter:text-[4.6em] [&>p:first-child]:first-letter:leading-[0.8] [&>p:first-child]:first-letter:mr-3 [&>p:first-child]:first-letter:mt-1 [&>p:first-child]:first-letter:text-accent"
+        data-reveal
+        style="--d:3"
+      >
+        <p>In the era of LLMs, I don't think writing tech blogs is as necessary as it once was.</p>
+        <p class="text-muted">
+          There was a time when I'd spend my evenings turning something I had just figured out into a post, hoping it
+          would save someone else a few hours of frustration. Today, anyone can ask an LLM and get a clear, patient
+          explanation in seconds, shaped around exactly where they are stuck.
+        </p>
+        <p class="text-muted">So I stopped writing tutorials.</p>
+        <blockquote class="display text-4xl md:text-5xl leading-[1.08] border-l-2 border-accent pl-6 my-4">
+          When I write now, I write what I feel: the thoughts that don't fit into a prompt.
+        </blockquote>
+        <p class="text-muted">
+          If you're here to learn something technical, LLMs are good enough. Honestly, they're a wonderful teacher.
+        </p>
+        <p class="text-muted">My earlier writing, and some of my more abstract thoughts, are kept as an archive.</p>
+
+        <a
+          href="https://imamhossainroni.hashnode.dev/"
+          target="_blank"
+          rel="noopener"
+          class="group mt-6 flex items-center justify-between gap-6 border-y border-line py-7"
+        >
+          <span>
+            <span class="eyebrow block mb-2">Archive</span>
+            <span class="display text-3xl md:text-4xl transition-colors group-hover:text-accent">RIP Abstract Thoughts</span>
+          </span>
+          <span
+            class="grid h-12 w-12 shrink-0 place-items-center rounded-full border border-line transition-all duration-500 group-hover:bg-accent group-hover:border-accent group-hover:text-[--accent-ink] group-hover:rotate-45"
+            aria-hidden="true"
+          >
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M7 17 17 7M8 7h9v9" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </span>
+        </a>
+      </div>
     </div>
   </article>
 </BaseLayout>

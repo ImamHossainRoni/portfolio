@@ -10,5 +10,5 @@ export default defineConfig({
   site: process.env.SITE_URL || 'https://imamhossainroni.me',
   base: process.env.BASE_PATH || '/',
   build: { assets: 'assets' },
-  integrations: [mdx(), sitemap(), tailwind()]
+  integrations: [mdx(), sitemap(), tailwind({ applyBaseStyles: false })]
 });

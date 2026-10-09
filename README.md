@@ -6,14 +6,15 @@ Personal portfolio website of **Imam Hossain Roni**, a Full-Stack Software Engin
 
 ## Pages
 
-- **Home:** intro, focus areas, selected work and core stack
+- **Home:** hero, key numbers, stack ticker, selected work, focus areas and career path
 - **Projects:** work across AI & knowledge systems, energy & battery storage, and SaaS & enterprise software
-- **CV:** experience, education, skills, awards and languages
+- **CV:** experience, education, skills, awards and languages (printable via "Save as PDF")
+- **Writing:** a short note on blogging, with a link to the Hashnode archive
 
 ## Tech stack
 
 - [Astro](https://astro.build) (static site generator)
-- [Tailwind CSS](https://tailwindcss.com) + [daisyUI](https://daisyui.com)
+- [Tailwind CSS](https://tailwindcss.com), with Instrument Serif, Geist and Geist Mono from Google Fonts
 - Deployed to **GitHub Pages** with GitHub Actions
 
 ## Run locally

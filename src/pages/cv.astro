@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import TimeLineElement from "../components/cv/TimeLine.astro";
+import Section from "../components/cv/Section.astro";
+import Role from "../components/cv/Role.astro";
 
 const skillGroups = [
   { name: "Languages", items: ["Python", "C#", "JavaScript", "TypeScript", "Bash"] },
@@ -10,154 +11,185 @@ const skillGroups = [
   { name: "Databases & Messaging", items: ["PostgreSQL", "MySQL", "Redis", "RabbitMQ"] },
   { name: "Cloud & DevOps", items: ["AWS", "Azure", "Docker", "Kubernetes", "Terraform", "CI/CD", "Nginx", "Linux (Debian)", "Git", "Grafana", "Prometheus"] },
 ];
+
+const education = [
+  {
+    degree: "M.Sc. Automotive Software Engineering",
+    school: "Technische Universität Chemnitz",
+    place: "Chemnitz, Germany",
+    period: "10/2024 – Present",
+  },
+  {
+    degree: "B.Sc. (Hons) Computer Science & Engineering",
+    school: "IUBAT – International University of Business Agriculture and Technology",
+    place: "Dhaka, Bangladesh",
+    period: "01/2015 – 06/2020",
+  },
+];
+
+const languages = [
+  { name: "English", level: "Advanced (C1)" },
+  { name: "German", level: "Intermediate (B1), pursuing B2" },
+];
 ---
 
-<BaseLayout title="Resume" sideBarActiveItemID="cv">
-  <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Profile</div>
-  </div>
+<BaseLayout title="CV | Imam Hossain Roni" sideBarActiveItemID="cv" wide>
+  <div class="wrap pt-12 md:pt-20">
+    <header class="grid gap-8 md:grid-cols-12 md:items-end">
+      <div class="md:col-span-9">
+        <p class="eyebrow mb-6" data-reveal>Curriculum Vitae</p>
+        <h1 class="display text-[clamp(3.2rem,10vw,9rem)]" data-reveal style="--d:1">
+          Imam Hossain <em>Roni</em>
+        </h1>
+        <p class="mt-6 eyebrow !text-ink" data-reveal style="--d:2">
+          Full-Stack Software Engineer · Frankfurt am Main, Germany
+        </p>
+      </div>
+      <div class="md:col-span-3 md:justify-self-end flex flex-wrap gap-3 no-print" data-reveal style="--d:3">
+        <button type="button" class="btn-ink" data-print>
+          Save as PDF
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"
+            ><path d="M12 4v11m0 0 4.5-4.5M12 15l-4.5-4.5M5 20h14" stroke-linecap="round" stroke-linejoin="round"></path></svg
+          >
+        </button>
+      </div>
+    </header>
 
-  <div class="mb-10 text-justify">
-    Full-Stack Software Engineer with 6+ years of experience building AI-powered applications, SaaS platforms, and the
-    cloud infrastructure they run on. Strong expertise in Python, Django, FastAPI, C#, ASP.NET Core, and modern
-    frontends, with hands-on experience in LLMs, RAG, semantic search, vector databases, and MCP integrations, and in
-    DevOps with AWS, Azure, Docker, Kubernetes, Terraform, and CI/CD. Experienced across AI, energy
-    trading, battery storage, ERP, and enterprise software, with a focus on turning complex business problems into
-    reliable, scalable solutions.
-  </div>
+    <Section index="01" label="Profile">
+      <p class="text-xl md:text-2xl leading-relaxed tracking-tight text-pretty">
+        Full-Stack Software Engineer with 6+ years of experience building AI-powered applications, SaaS platforms, and
+        the cloud infrastructure they run on.
+      </p>
+      <p class="mt-5 text-muted leading-relaxed">
+        Strong expertise in Python, Django, FastAPI, C#, ASP.NET Core, and modern frontends, with hands-on experience
+        in LLMs, RAG, semantic search, vector databases, and MCP integrations, and in DevOps with AWS, Azure, Docker,
+        Kubernetes, Terraform, and CI/CD. Experienced across AI, energy trading, battery storage, ERP, and enterprise
+        software, with a focus on turning complex business problems into reliable, scalable solutions.
+      </p>
+    </Section>
 
-  <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Experience</div>
-  </div>
+    <Section index="02" label="Experience">
+      <Role role="Software Engineer (Work-Study)" org="Flowvy" period="08/2025 – 04/2026" place="Chemnitz, Germany">
+        <ul>
+          <li>Developed an AI-powered business platform that turns company knowledge and documents into searchable, contextual information, helping teams reduce manual research and make faster, information-driven decisions.</li>
+          <li>Connected AI with real business workflows by integrating project management, calendar, email, and ERP systems through an MCP-based integration layer, enabling LLMs to retrieve business context and execute context-aware actions.</li>
+          <li>Engineered scalable AI backend services using Django, RAG, embeddings, vector search, and automated data pipelines, supporting reliable knowledge retrieval, document processing, and AI-assisted workflows.</li>
+        </ul>
+      </Role>
+      <Role role="Software Engineer (Remote)" org="TESVOLT AG" period="07/2023 – 07/2025" place="Berlin, Germany">
+        <ul>
+          <li>Developed software for monitoring battery energy storage systems (BESS), providing visibility into SOC, SOH, cell/module voltages, and thermal performance to support system health monitoring and operational decisions.</li>
+          <li>Built a Python-based BESS simulation and recommendation system to analyze battery behavior under customer demand and operational scenarios, supporting optimized charging/discharging strategies and BESS configuration recommendations.</li>
+          <li>Implemented software supporting energy trading decisions by integrating real-time battery and market data, including a trading dashboard updated every 5 seconds to provide real-time visibility into market activity and battery operation.</li>
+          <li>Engineered backend services and APIs for energy-related applications, supporting data exchange between storage systems, business services, and customer-facing platforms.</li>
+        </ul>
+      </Role>
+      <Role role="Software Engineer" org="iQuantile LLC" period="12/2021 – 06/2023" place="Dhaka, Bangladesh">
+        <ul>
+          <li>Developed and scaled Quantibly, a SaaS platform for NGO data management, building backend services and APIs that centralized operational data and streamlined data-driven workflows.</li>
+          <li>Contributed across frontend development, deployment, and application monitoring, improving data accessibility, system reliability, and smooth day-to-day platform operations.</li>
+        </ul>
+      </Role>
+      <Role role="Software Engineer" org="Qtec Solution Ltd." period="06/2020 – 12/2021" place="Dhaka, Bangladesh">
+        <ul>
+          <li>Developed software for legal, e-commerce, payment, and retail businesses, helping teams automate everyday tasks, manage transactions, and access business information more efficiently.</li>
+          <li>Built a location-based survey and data-collection system with real-time monitoring and enhanced logging, helping teams collect reliable field data and identify issues faster.</li>
+          <li>Deployed and maintained cloud-based applications on DigitalOcean, keeping systems reliable, available, and ready to scale as usage increased.</li>
+        </ul>
+      </Role>
+      <Role role="Jr. Software Engineer" org="Divine IT Ltd." period="04/2019 – 06/2020" place="Dhaka, Bangladesh">
+        <ul>
+          <li>Enhanced ERP and VAT management software used by 1M+ end users, supporting core business operations and local tax compliance.</li>
+          <li>Developed business modules for fleet, support tickets, warranty, inventory, and product management, automating day-to-day workflows.</li>
+          <li>Adapted the platform across multiple database engines, improving compatibility and supporting diverse customer requirements.</li>
+        </ul>
+      </Role>
+    </Section>
 
-  <div class="time-line-container mb-10">
-    <TimeLineElement
-      title="Software Engineer (Work-Study) at Flowvy"
-      subtitle="08/2025 – 04/2026 · Chemnitz, Germany"
-    >
-      <ul class="list-disc ml-5 grid gap-1">
-        <li>Developed an AI-powered business platform that turns company knowledge and documents into searchable, contextual information, helping teams reduce manual research and make faster, information-driven decisions.</li>
-        <li>Connected AI with real business workflows by integrating project management, calendar, email, and ERP systems through an MCP-based integration layer, enabling LLMs to retrieve business context and execute context-aware actions.</li>
-        <li>Engineered scalable AI backend services using Django, RAG, embeddings, vector search, and automated data pipelines, supporting reliable knowledge retrieval, document processing, and AI-assisted workflows.</li>
-      </ul>
-    </TimeLineElement>
-    <TimeLineElement
-      title="Software Engineer (Remote) at TESVOLT AG"
-      subtitle="07/2023 – 07/2025 · Berlin, Germany"
-    >
-      <ul class="list-disc ml-5 grid gap-1">
-        <li>Developed software for monitoring battery energy storage systems (BESS), providing visibility into SOC, SOH, cell/module voltages, and thermal performance to support system health monitoring and operational decisions.</li>
-        <li>Built a Python-based BESS simulation and recommendation system to analyze battery behavior under customer demand and operational scenarios, supporting optimized charging/discharging strategies and BESS configuration recommendations.</li>
-        <li>Implemented software supporting energy trading decisions by integrating real-time battery and market data, including a trading dashboard updated every 5 seconds to provide real-time visibility into market activity and battery operation.</li>
-        <li>Engineered backend services and APIs for energy-related applications, supporting data exchange between storage systems, business services, and customer-facing platforms.</li>
-      </ul>
-    </TimeLineElement>
-    <TimeLineElement
-      title="Software Engineer at iQuantile LLC"
-      subtitle="12/2021 – 06/2023 · Dhaka, Bangladesh"
-    >
-      <ul class="list-disc ml-5 grid gap-1">
-        <li>Developed and scaled Quantibly, a SaaS platform for NGO data management, building backend services and APIs that centralized operational data and streamlined data-driven workflows.</li>
-        <li>Contributed across frontend development, deployment, and application monitoring, improving data accessibility, system reliability, and smooth day-to-day platform operations.</li>
-      </ul>
-    </TimeLineElement>
-    <TimeLineElement
-      title="Software Engineer at Qtec Solution Ltd."
-      subtitle="06/2020 – 12/2021 · Dhaka, Bangladesh"
-    >
-      <ul class="list-disc ml-5 grid gap-1">
-        <li>Developed software for legal, e-commerce, payment, and retail businesses, helping teams automate everyday tasks, manage transactions, and access business information more efficiently.</li>
-        <li>Built a location-based survey and data-collection system with real-time monitoring and enhanced logging, helping teams collect reliable field data and identify issues faster.</li>
-        <li>Deployed and maintained cloud-based applications on DigitalOcean, keeping systems reliable, available, and ready to scale as usage increased.</li>
-      </ul>
-    </TimeLineElement>
-    <TimeLineElement
-      title="Jr. Software Engineer at Divine IT Ltd."
-      subtitle="04/2019 – 06/2020 · Dhaka, Bangladesh"
-    >
-      <ul class="list-disc ml-5 grid gap-1">
-        <li>Enhanced ERP and VAT management software used by 1M+ end users, supporting core business operations and local tax compliance.</li>
-        <li>Developed business modules for fleet, support tickets, warranty, inventory, and product management, automating day-to-day workflows.</li>
-        <li>Adapted the platform across multiple database engines, improving compatibility and supporting diverse customer requirements.</li>
-      </ul>
-    </TimeLineElement>
-  </div>
+    <Section index="03" label="Education">
+      {
+        education.map((e) => (
+          <article class="grid gap-2 md:grid-cols-[1fr_auto] md:gap-x-10 py-6 first:pt-0 border-b border-line last:border-b-0">
+            <div>
+              <h3 class="text-xl md:text-2xl font-medium tracking-tight">{e.degree}</h3>
+              <p class="mt-1 text-muted">{e.school}</p>
+            </div>
+            <p class="eyebrow md:text-right md:pt-2">
+              {e.period}
+              <br class="hidden md:block" />
+              <span class="md:hidden"> · </span>
+              {e.place}
+            </p>
+          </article>
+        ))
+      }
+    </Section>
 
-  <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Education</div>
-  </div>
+    <Section index="04" label="Skills">
+      <dl class="grid sm:grid-cols-2 gap-x-10">
+        {
+          skillGroups.map((group) => (
+            <div class="py-5 border-b border-line">
+              <dt class="eyebrow mb-3">{group.name}</dt>
+              <dd class="flex flex-wrap gap-2">
+                {group.items.map((item) => (
+                  <span class="chip">{item}</span>
+                ))}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </Section>
 
-  <div class="time-line-container grid gap-4 mb-10">
-    <TimeLineElement
-      title="M.Sc. Automotive Software Engineering"
-      subtitle="10/2024 – Present at Technische Universität Chemnitz, Chemnitz, Germany"
-    />
-    <TimeLineElement
-      title="B.Sc. (Hons) Computer Science & Engineering"
-      subtitle="01/2015 – 06/2020 at IUBAT – International University of Business Agriculture and Technology, Dhaka, Bangladesh"
-    />
-  </div>
+    <Section index="05" label="Awards">
+      <div class="flex items-baseline gap-5">
+        <span class="display text-5xl text-accent">2016</span>
+        <p class="text-lg">Champion, EATL – Prothom Alo Apps Contest</p>
+      </div>
+    </Section>
 
-  <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Skills</div>
-  </div>
+    <Section index="06" label="Languages">
+      <dl class="grid sm:grid-cols-2 gap-6">
+        {
+          languages.map((l) => (
+            <div>
+              <dt class="display text-4xl">{l.name}</dt>
+              <dd class="mt-1 text-muted">{l.level}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </Section>
 
-  <div class="grid md:grid-cols-2 gap-4 mb-10">
-    {
-      skillGroups.map((group) => (
-        <div class="rounded-lg bg-base-200 p-5">
-          <h3 class="font-bold text-lg mb-3">{group.name}</h3>
+    <Section index="07" label="Beyond code">
+      <div class="grid sm:grid-cols-2 gap-8">
+        <div>
+          <p class="eyebrow mb-3">Interests</p>
           <div class="flex flex-wrap gap-2">
-            {group.items.map((item) => (
-              <span class="inline-flex items-center rounded-full border border-base-300 bg-base-100 px-3.5 py-1 text-sm font-medium shadow-sm transition-colors hover:bg-base-300 hover:border-base-content/30">{item}</span>
-            ))}
+            {["Open Source", "System Design", "Hackathons"].map((item) => <span class="chip">{item}</span>)}
           </div>
         </div>
-      ))
-    }
-  </div>
-
-  <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Honors & Awards</div>
-  </div>
-
-  <ul class="list-disc mx-6 mb-10 grid gap-2">
-    <li>Champion, EATL – Prothom Alo Apps Contest 2016</li>
-  </ul>
-
-  <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Languages</div>
-  </div>
-
-  <div class="flex flex-wrap gap-2 mb-10">
-    <span class="inline-flex items-center rounded-full border border-base-300 bg-base-200 px-3.5 py-1 text-sm font-medium transition-colors hover:bg-base-300 hover:border-base-content/30">English · Advanced (C1)</span>
-    <span class="inline-flex items-center rounded-full border border-base-300 bg-base-200 px-3.5 py-1 text-sm font-medium transition-colors hover:bg-base-300 hover:border-base-content/30">German · Intermediate (B1), pursuing B2</span>
-  </div>
-
-  <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Interests & Soft Skills</div>
-  </div>
-
-  <div class="grid gap-4 mb-10">
-    <div>
-      <div class="font-semibold mb-2">Interests</div>
-      <div class="flex flex-wrap gap-2">
-        {["Open Source", "System Design", "Hackathons"].map((item) => <span class="inline-flex items-center rounded-full border border-base-300 bg-base-200 px-3.5 py-1 text-sm font-medium transition-colors hover:bg-base-300 hover:border-base-content/30">{item}</span>)}
+        <div>
+          <p class="eyebrow mb-3">Soft skills</p>
+          <div class="flex flex-wrap gap-2">
+            {["Problem-solving", "Teamwork", "Clean code", "Agile methods"].map((item) => <span class="chip">{item}</span>)}
+          </div>
+        </div>
       </div>
-    </div>
-    <div>
-      <div class="font-semibold mb-2">Soft skills</div>
-      <div class="flex flex-wrap gap-2">
-        {["Problem-solving", "Teamwork", "Clean code", "Agile methods"].map((item) => <span class="inline-flex items-center rounded-full border border-base-300 bg-base-200 px-3.5 py-1 text-sm font-medium transition-colors hover:bg-base-300 hover:border-base-content/30">{item}</span>)}
-      </div>
-    </div>
-  </div>
+    </Section>
 
-  <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Reference</div>
-  </div>
-
-  <div class="mb-10">
-    Wolf Bosse, Digital Product Owner, TESVOLT AG. Contact details available on request.
+    <Section index="08" label="Reference">
+      <p class="text-lg">
+        Wolf Bosse, <span class="text-muted">Digital Product Owner, TESVOLT AG.</span>
+      </p>
+      <p class="mt-1 text-muted">Contact details available on request.</p>
+    </Section>
   </div>
 </BaseLayout>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    document.querySelector("[data-print]")?.addEventListener("click", () => window.print());
+  });
+</script>
