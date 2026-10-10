@@ -1,0 +1,13 @@
+---
+const { role, org, period, place } = Astro.props;
+---
+
+<div class="mb-5 break-inside-avoid">
+  <p>
+    <span class="c-yellow font-bold">{role}</span> <span class="dim">@</span> <span class="c-cyan font-bold">{org}</span>
+  </p>
+  <p class="dim !mt-0">{period}{place && <> · {place}</>}</p>
+  <div class="job-bullets mt-1">
+    <slot />
+  </div>
+</div>

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Prompt from "../components/Prompt.astro";
 
 const groups = [
   {
@@ -75,53 +76,50 @@ const groups = [
   },
 ];
 
-// Running project number across groups, for the 01–08 index.
-const offsets = groups.map((_, g) => groups.slice(0, g).reduce((n, gr) => n + gr.projects.length, 0));
+
+// Directory-style names for each group, e.g. "AI & Knowledge Systems" -> "ai-knowledge-systems".
+const slug = (s: string) => s.toLowerCase().replace(/&/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 ---
 
-<BaseLayout title="Work | Imam Hossain Roni" sideBarActiveItemID="projects" wide>
-  <section class="wrap pt-12 md:pt-20">
-    <p class="eyebrow mb-6" data-reveal>Work · 2019 — now</p>
-    <h1 class="display text-[clamp(3.2rem,11vw,10rem)]" data-reveal style="--d:1">
-      Selected <em>projects</em>
-    </h1>
-    <p class="mt-8 max-w-2xl text-lg md:text-xl text-muted leading-relaxed" data-reveal style="--d:2">
-      Eight systems across three domains: AI that understands a company's own knowledge, software that keeps
-      battery storage healthy and profitable, and the SaaS and ERP platforms where it all started.
+<BaseLayout title="Projects - Imam Hossain Roni" sideBarActiveItemID="projects">
+  <Prompt dir="~/projects" cmd="cat README.md">
+    <p>
+      Systems I've built since 2019: AI that understands a company's own knowledge, software for battery energy storage,
+      and the SaaS and ERP platforms where it all started.
     </p>
-  </section>
+  </Prompt>
+
+  <Prompt dir="~/projects" cmd="ls">
+    <p>
+      {
+        groups.map((g) => (
+          <>
+            <span class="c-blue font-bold">{slug(g.name)}/</span>{"  "}
+          </>
+        ))
+      }
+    </p>
+  </Prompt>
 
   {
-    groups.map((group, g) => (
-      <section class="wrap mt-24 md:mt-32">
-        <div class="grid gap-6 md:grid-cols-12 mb-8 md:mb-10" data-reveal>
-          <p class="eyebrow md:col-span-1 pt-3">§{g + 1}</p>
-          <h2 class="display text-4xl md:text-6xl md:col-span-11">{group.name}</h2>
-        </div>
-        <ol>
-          {group.projects.map((p, i) => (
-              <li class="row" data-reveal>
-                <article class="grid gap-5 py-9 md:py-11 md:grid-cols-12 md:gap-8">
-                  <span class="row-index eyebrow md:col-span-1 pt-2">{String(offsets[g] + i + 1).padStart(2, "0")}</span>
-                  <div class="md:col-span-6">
-                    <h3 class="row-title display text-[2rem] md:text-[2.75rem] leading-[1.04]">{p.title}</h3>
-                    <p class="mt-4 eyebrow">
-                      {p.org} — {p.period}
-                    </p>
-                  </div>
-                  <div class="md:col-span-5">
-                    <p class="leading-relaxed text-muted">{p.desc}</p>
-                    <div class="mt-5 flex flex-wrap gap-2">
-                      {p.tags.map((t) => (
-                        <span class="chip">{t}</span>
-                      ))}
-                    </div>
-                  </div>
-                </article>
-              </li>
+    groups.map((group) => (
+      <Prompt dir="~/projects" cmd={`cat ${slug(group.name)}/*.md`}>
+        <h2 class="md-h1 !mt-1">{group.name}</h2>
+        <div class="grid gap-5">
+          {group.projects.map((p) => (
+            <article>
+              <h3 class="md-h2 !my-0">{p.title}</h3>
+              <p class="dim">
+                {p.org} · {p.period}
+              </p>
+              <p class="mt-1">{p.desc}</p>
+              <p class="mt-1">
+                <span class="c-yellow">tags:</span> <span class="c-green">{p.tags.join(", ")}</span>
+              </p>
+            </article>
           ))}
-        </ol>
-      </section>
+        </div>
+      </Prompt>
     ))
   }
 </BaseLayout>

@@ -19,31 +19,12 @@ const { title, description, image = '/og-image.png', ogType = 'website' } = Astr
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="icon" type="image/png" href={withBase("/favicon.png")} />
 <link rel="apple-touch-icon" href={withBase("/apple-touch-icon.png")} />
-<meta name="theme-color" content="#f3f0e8" media="(prefers-color-scheme: light)" />
-<meta name="theme-color" content="#11110f" media="(prefers-color-scheme: dark)" />
+<meta name="theme-color" content="#15161a" />
 
-<!-- Fonts -->
+<!-- Macs use SF Mono / Menlo; this is the fallback mono font for everyone else. -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link
-	rel="stylesheet"
-	href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"
-/>
-
-<!-- Theme: set before first paint (and after each view-transition swap) to avoid a flash. -->
-<script is:inline>
-	(function () {
-		function apply(doc) {
-			var stored = null;
-			try { stored = localStorage.getItem("theme"); } catch (e) {}
-			var dark = stored ? stored === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
-			doc.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
-			doc.documentElement.classList.add("js");
-		}
-		apply(document);
-		document.addEventListener("astro:before-swap", function (e) { apply(e.newDocument); });
-	})();
-</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" />
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>

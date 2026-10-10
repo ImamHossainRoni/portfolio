@@ -1,17 +1,22 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Prompt from "../components/Prompt.astro";
 import withBase from "../lib/withBase";
 ---
 
-<BaseLayout title="404: Not Found" wide>
-  <section class="wrap pt-16 md:pt-24 min-h-[60vh] flex flex-col justify-center">
-    <p class="eyebrow mb-6">Error 404</p>
-    <h1 class="display text-[clamp(4rem,16vw,15rem)]">
-      Lost at <em>sea.</em>
-    </h1>
-    <p class="mt-8 max-w-md text-lg text-muted">The page you're looking for couldn't be found. It may have moved, or never existed.</p>
-    <div class="mt-10">
-      <a class="btn-ink" href={withBase("/")}>← Back home</a>
-    </div>
-  </section>
+<BaseLayout title="404: Not Found">
+  <Prompt cmd="cd /that-page">
+    <p><span class="c-red">cd: no such file or directory:</span> <span data-path>/that-page</span></p>
+  </Prompt>
+  <Prompt cmd="cd ~" failed>
+    <p class="dim">That page doesn't exist. Head back <a href={withBase("/")}>home</a>, or type <span class="c-green">help</span> below.</p>
+  </Prompt>
 </BaseLayout>
+
+<script>
+  // Show the path the visitor actually asked for.
+  const path = decodeURIComponent(location.pathname);
+  document.querySelectorAll("[data-path]").forEach((el) => (el.textContent = path));
+  const firstCmd = document.querySelector(".prompt .p-cmd");
+  if (firstCmd) firstCmd.textContent = `cd ${path}`;
+</script>

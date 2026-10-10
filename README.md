@@ -6,15 +6,15 @@ Personal portfolio website of **Imam Hossain Roni**, a Full-Stack Software Engin
 
 ## Pages
 
-- **Home:** hero, key numbers, stack ticker, selected work, focus areas and career path
+- **Home:** neofetch, about, news, focus, projects, stack and contact, all as terminal output
 - **Projects:** work across AI & knowledge systems, energy & battery storage, and SaaS & enterprise software
-- **CV:** experience, education, skills, awards and languages (printable via "Save as PDF")
+- **CV:** experience, education, skills, awards and languages (with a print button)
 - **Writing:** a short note on blogging, with a link to the Hashnode archive
 
 ## Tech stack
 
 - [Astro](https://astro.build) (static site generator)
-- [Tailwind CSS](https://tailwindcss.com), with Instrument Serif, Geist and Geist Mono from Google Fonts
+- [Tailwind CSS](https://tailwindcss.com) plus hand-written CSS for a macOS Terminal look with an oh-my-zsh agnoster (powerline) prompt; the prompt at the bottom of each page is a small working shell (type `help`)
 - Deployed to **GitHub Pages** with GitHub Actions
 
 ## Run locally

@@ -1,0 +1,11 @@
+---
+// One agnoster prompt line with the command that "was run", e.g. [~] [ main] cat about.txt
+import PS1 from "./PS1.astro";
+
+const { dir = "~", cmd, failed = false } = Astro.props;
+---
+
+<div class="prompt"><PS1 dir={dir} failed={failed} />{" "}<span class="p-cmd">{cmd}</span></div>
+<div class="out">
+  <slot />
+</div>

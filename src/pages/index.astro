@@ -1,293 +1,136 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Prompt from "../components/Prompt.astro";
 import withBase from "../lib/withBase";
+import { socials, EMAIL } from "../lib/links";
 
-const stats = [
-  { value: "6+", label: "Years shipping production software" },
-  { value: "1M+", label: "End users on ERP & VAT software I extended" },
-  { value: "5s", label: "Refresh rate of a live energy-trading dashboard" },
-  { value: "4", label: "Domains: AI, energy, SaaS and enterprise" },
+const fetch = [
+  ["Name", "Imam Hossain Roni"],
+  ["Role", "Full-Stack Software Engineer"],
+  ["Location", "Frankfurt am Main, Germany"],
+  ["Uptime", "6+ years in production"],
+  ["Backend", "Python, Django, FastAPI, C#, ASP.NET Core"],
+  ["AI", "LLMs, RAG, MCP, vector search"],
+  ["Cloud", "AWS, Azure, Docker, Kubernetes, Terraform"],
+  ["Studying", "M.Sc. Automotive Software Eng. @ TU Chemnitz"],
 ];
 
-const selectedWork = [
-  {
-    company: "Flowvy",
-    period: "2025 – 2026",
-    title: "AI-Powered Business Knowledge Platform",
-    desc: "Turns company knowledge and documents into searchable, contextual information. An MCP-based integration layer lets LLMs work with project management, calendar, email and ERP systems.",
-    tags: ["Django", "RAG", "Vector Search", "MCP"],
-  },
-  {
-    company: "TESVOLT AG",
-    period: "2023 – 2025",
-    title: "Battery Storage Monitoring & Energy Trading",
-    desc: "Monitoring for SOC, SOH, cell voltages and thermals, a Python simulation and recommendation engine, and a trading dashboard that refreshes every 5 seconds.",
-    tags: ["Python", "Real-time Data", "APIs"],
-  },
-  {
-    company: "iQuantile LLC",
-    period: "2021 – 2023",
-    title: "Quantibly: NGO Data Management SaaS",
-    desc: "Backend services and APIs that centralize operational data for NGOs, plus frontend, deployment and monitoring work.",
-    tags: ["SaaS", "Backend", "Monitoring"],
-  },
+const news = [
+  { date: "2026-04", text: "Wrapped up my work-study at Flowvy, building an AI knowledge platform with RAG, vector search and MCP." },
+  { date: "2024-10", text: "Started my M.Sc. in Automotive Software Engineering at TU Chemnitz." },
+  { date: "2023-07", text: "Joined TESVOLT AG (remote, Berlin) to work on battery storage monitoring and energy trading." },
 ];
 
 const focusAreas = [
-  {
-    title: "AI & LLM Systems",
-    desc: "RAG pipelines, embeddings, vector search and MCP integrations that bring LLMs into real business workflows.",
-  },
-  {
-    title: "Full-Stack Development",
-    desc: "End-to-end products: APIs with Django, FastAPI and ASP.NET Core, and frontends in React, Vue and Angular.",
-  },
-  {
-    title: "DevOps & Cloud",
-    desc: "AWS and Azure infrastructure with Docker, Kubernetes, Terraform and CI/CD, monitored with Grafana and Prometheus.",
-  },
-  {
-    title: "Energy & Battery Storage",
-    desc: "BESS monitoring, simulation and real-time energy trading software built on live battery and market data.",
-  },
+  { title: "AI & LLM Systems", desc: "RAG pipelines, embeddings, vector search and MCP integrations that bring LLMs into real business workflows." },
+  { title: "Full-Stack Development", desc: "APIs with Django, FastAPI and ASP.NET Core, and frontends in React, Vue and Angular." },
+  { title: "DevOps & Cloud", desc: "AWS and Azure with Docker, Kubernetes, Terraform and CI/CD, monitored with Grafana and Prometheus." },
+  { title: "Energy & Battery Storage", desc: "BESS monitoring, simulation and real-time energy trading software." },
 ];
 
-const path = [
-  { year: "2019", org: "Divine IT", role: "Jr. Software Engineer", place: "Dhaka" },
-  { year: "2020", org: "Qtec Solution", role: "Software Engineer", place: "Dhaka" },
-  { year: "2021", org: "iQuantile", role: "Software Engineer", place: "Dhaka" },
-  { year: "2023", org: "TESVOLT AG", role: "Software Engineer", place: "Berlin, remote" },
-  { year: "2024", org: "TU Chemnitz", role: "M.Sc. Automotive Software Eng.", place: "Chemnitz" },
-  { year: "2025", org: "Flowvy", role: "Software Engineer", place: "Chemnitz" },
+const selectedWork = [
+  { period: "2025–26", name: "ai-knowledge-platform", title: "AI-Powered Business Knowledge Platform", company: "Flowvy" },
+  { period: "2023–25", name: "bess-monitoring-trading", title: "Battery Storage Monitoring & Energy Trading", company: "TESVOLT AG" },
+  { period: "2021–23", name: "quantibly", title: "Quantibly: NGO Data Management SaaS", company: "iQuantile LLC" },
 ];
 
-const coreStack = ["Python", "Django", "FastAPI", "C#", "ASP.NET Core", "TypeScript", "PostgreSQL", "Redis", "Docker", "Kubernetes", "Terraform", "AWS", "Azure"];
+const coreStack = ["python", "django", "fastapi", "csharp", "aspnet-core", "typescript", "postgresql", "redis", "docker", "kubernetes", "terraform", "aws", "azure"];
 ---
 
-<BaseLayout sideBarActiveItemID="home" wide>
-  <!-- ============ Hero ============ -->
-  <section class="wrap pt-10 md:pt-16">
-    <div class="flex flex-wrap items-center justify-between gap-3 eyebrow">
-      <span class="inline-flex items-center gap-2.5">
-        <span class="dot-live" aria-hidden="true"></span>
-        Frankfurt am Main · <span data-clock>CET</span>
-      </span>
-      <span class="hidden sm:inline">Portfolio · {new Date().getFullYear()}</span>
-    </div>
-
-    <h1 class="display mt-10 md:mt-14 text-[clamp(2.7rem,10.4vw,11.5rem)]">
-      <span class="line-mask"><span style="--d:0">I build <em>AI-powered</em></span></span>
-      <span class="line-mask"><span style="--d:1">software &amp; the cloud</span></span>
-      <span class="line-mask">
-        <span style="--d:2">
-          it runs on.
-          <img
-            src={withBase("/profile.webp")}
-            alt="Portrait of Imam Hossain Roni"
-            width="459"
-            height="459"
-            class="inline-block h-[0.78em] w-[1.25em] -translate-y-[0.06em] rounded-full object-cover object-[50%_30%] grayscale transition-[filter] duration-500 hover:grayscale-0 align-middle ml-1"
-          />
-        </span>
-      </span>
-    </h1>
-
-    <div class="mt-12 md:mt-16 grid gap-10 md:grid-cols-12 md:items-end">
-      <div class="md:col-span-7 lg:col-span-6" data-reveal>
-        <p class="eyebrow !text-ink">Full-Stack Software Engineer</p>
-        <p class="mt-4 text-lg md:text-xl leading-relaxed text-muted text-pretty">
-          Six years of turning complex business problems into reliable systems: Python and Django backends with
-          LLM-powered features, modern frontends, and the AWS and Azure infrastructure behind them, across AI, energy
-          trading, battery storage and enterprise software.
-        </p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <a href={withBase("/projects")} class="btn-ink">
-            See my work
-            <span aria-hidden="true">→</span>
-          </a>
-          <a href={withBase("/cv")} class="btn-line">Read the CV</a>
-        </div>
-      </div>
-
-      <a
-        href="mailto:imamhossainroni.de@gmail.com"
-        class="group relative hidden md:grid md:col-span-3 md:col-start-10 lg:col-start-11 lg:col-span-2 justify-self-end h-36 w-36 place-items-center"
-        aria-label="Get in touch by email"
-        data-reveal
-        style="--d:2"
-      >
-        <svg viewBox="0 0 100 100" class="absolute inset-0 spin-slow" aria-hidden="true">
-          <defs><path id="circle" d="M50,50 m-40,0 a40,40 0 1,1 80,0 a40,40 0 1,1 -80,0"></path></defs>
-          <text class="fill-current font-mono uppercase" style="font-size:8px" textLength="248" lengthAdjust="spacing">
-            <textPath href="#circle">Get in touch · Say hello · Get in touch · Say hello ·</textPath>
-          </text>
-        </svg>
-        <span
-          class="grid h-14 w-14 place-items-center rounded-full bg-accent text-[--accent-ink] transition-transform duration-500 group-hover:scale-110 group-hover:rotate-45"
-        >
-          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-            <path d="M7 17 17 7M8 7h9v9" stroke-linecap="round" stroke-linejoin="round"></path>
-          </svg>
-        </span>
-      </a>
-    </div>
-
-    <!-- Numbers -->
-    <dl class="mt-20 md:mt-28 grid grid-cols-2 lg:grid-cols-4 border-t border-line">
-      {
-        stats.map((s, i) => (
-          <div
-            class:list={[
-              "pt-6 pb-8 pr-4 border-line",
-              i % 2 === 1 && "pl-4 lg:pl-6 border-l",
-              i >= 2 && "border-t lg:border-t-0",
-              i === 2 && "lg:border-l lg:pl-6",
-            ]}
-            data-reveal
-            style={`--d:${i}`}
-          >
-            <dt class="sr-only">{s.label}</dt>
-            <dd class="display text-6xl md:text-7xl">{s.value}</dd>
-            <dd class="mt-3 text-sm text-muted max-w-[16rem] leading-snug">{s.label}</dd>
-          </div>
-        ))
-      }
-    </dl>
-  </section>
-
-  <!-- ============ Stack marquee ============ -->
-  <section class="mt-16 md:mt-24 border-y border-line py-6 md:py-8" aria-label="Core stack">
-    <div class="marquee">
-      {
-        [0, 1].map((copy) => (
-          <ul class="marquee-track" aria-hidden={copy === 1 ? "true" : undefined}>
-            {coreStack.map((item) => (
-              <li class="flex items-center display text-4xl md:text-6xl whitespace-nowrap">
-                <span class="px-6 md:px-10">{item}</span>
-                <span class="text-accent text-2xl md:text-3xl" aria-hidden="true">✳</span>
-              </li>
-            ))}
-          </ul>
-        ))
-      }
-    </div>
-  </section>
-
-  <!-- ============ Selected work ============ -->
-  <section class="wrap mt-28 md:mt-40">
-    <div class="flex items-end justify-between gap-6 mb-10 md:mb-14">
-      <div data-reveal>
-        <p class="eyebrow mb-4">01 / Selected work</p>
-        <h2 class="display text-5xl md:text-7xl">Things I've <em>built</em></h2>
-      </div>
-      <a href={withBase("/projects")} class="hidden sm:inline-flex btn-line shrink-0" data-reveal>All projects →</a>
-    </div>
-
-    <ol>
-      {
-        selectedWork.map((work, i) => (
-          <li class="row" data-reveal>
-            <a href={withBase("/projects")} class="grid gap-5 py-9 md:py-12 md:grid-cols-12 md:gap-8">
-              <span class="row-index eyebrow md:col-span-1 pt-2">0{i + 1}</span>
-              <div class="md:col-span-6">
-                <h3 class="row-title display text-[2.1rem] md:text-5xl leading-[1.02]">{work.title}</h3>
-                <p class="mt-4 eyebrow">
-                  {work.company} — {work.period}
-                </p>
-              </div>
-              <div class="md:col-span-5">
-                <p class="leading-relaxed text-muted">{work.desc}</p>
-                <div class="mt-5 flex flex-wrap gap-2">
-                  {work.tags.map((tag) => (
-                    <span class="chip">{tag}</span>
-                  ))}
-                </div>
-              </div>
-            </a>
-          </li>
-        ))
-      }
-    </ol>
-    <a href={withBase("/projects")} class="sm:hidden mt-8 btn-line">All projects →</a>
-  </section>
-
-  <!-- ============ Focus ============ -->
-  <section class="wrap mt-28 md:mt-40 grid gap-12 md:grid-cols-12">
-    <div class="md:col-span-5">
-      <div class="md:sticky md:top-32" data-reveal>
-        <p class="eyebrow mb-4">02 / Focus</p>
-        <h2 class="display text-5xl md:text-7xl">Where I spend <em>my days</em></h2>
-        <p class="mt-6 text-muted leading-relaxed max-w-sm">
-          From the vector index to the Terraform plan: I like owning a system end to end, and making it boring to run.
-        </p>
-      </div>
-    </div>
-    <ol class="md:col-span-7 md:col-start-6">
-      {
-        focusAreas.map((area, i) => (
-          <li class="grid grid-cols-[3rem_1fr] gap-4 border-t border-line py-8 md:py-10 last:border-b" data-reveal>
-            <span class="eyebrow pt-2">0{i + 1}</span>
-            <div>
-              <h3 class="display text-3xl md:text-4xl">{area.title}</h3>
-              <p class="mt-3 text-muted leading-relaxed max-w-xl">{area.desc}</p>
-            </div>
-          </li>
-        ))
-      }
-    </ol>
-  </section>
-
-  <!-- ============ Path ============ -->
-  <section class="mt-28 md:mt-40">
-    <div class="wrap flex items-end justify-between gap-6 mb-12" data-reveal>
+<BaseLayout sideBarActiveItemID="home">
+  <Prompt cmd="neofetch">
+    <div class="neofetch mt-2">
+      <img src={withBase("/profile.webp")} alt="Photo of Imam Hossain Roni" width="459" height="459" />
       <div>
-        <p class="eyebrow mb-4">03 / Path</p>
-        <h2 class="display text-5xl md:text-7xl">Dhaka <em>→</em> Germany</h2>
-      </div>
-      <a href={withBase("/cv")} class="hidden sm:inline-flex btn-line shrink-0">Full CV →</a>
-    </div>
-
-    <div class="wrap">
-      <ol class="relative -mx-5 px-5 md:mx-0 md:px-0 flex md:grid md:grid-cols-6 overflow-x-auto snap-x snap-mandatory scroll-px-5 md:scroll-px-0 pb-4 [scrollbar-width:none]">
+        <p class="c-green font-bold">Imam Hossain Roni</p>
+        <p class="dim">-----------------</p>
         {
-          path.map((step, i) => (
-            <li class="relative snap-start shrink-0 w-[62%] sm:w-[40%] md:w-auto pr-6 pt-10" data-reveal style={`--d:${i}`}>
-              <span class="absolute left-0 right-0 top-[0.3rem] h-px bg-line" aria-hidden="true" />
-              <span
-                class:list={[
-                  "absolute left-0 top-0 h-[0.65rem] w-[0.65rem] rounded-full border",
-                  i === path.length - 1 ? "bg-accent border-accent" : "bg-paper border-ink",
-                ]}
-                aria-hidden="true"
-              />
-              <p class="display text-4xl">{step.year}</p>
-              <p class="mt-3 font-medium">{step.org}</p>
-              <p class="mt-1 text-sm text-muted leading-snug">{step.role}</p>
-              <p class="mt-1 eyebrow !text-[0.65rem]">{step.place}</p>
-            </li>
+          fetch.map(([k, v]) => (
+            <p>
+              <span class="c-yellow font-bold">{k}</span>: {v}
+            </p>
           ))
         }
-      </ol>
+        <div class="swatches" aria-hidden="true">
+          {["#2e3436", "#ff6b6b", "#5fd068", "#e8c46a", "#6aa6ff", "#d18cf0", "#56c2d6", "#d7d7d7"].map((c) => <span style={`background:${c}`} />)}
+        </div>
+      </div>
     </div>
-  </section>
-</BaseLayout>
+  </Prompt>
 
-<script>
-  // Live local time in Frankfurt, next to the pulsing dot in the hero.
-  function tick() {
-    const el = document.querySelector("[data-clock]");
-    if (!el) return;
-    el.textContent = new Intl.DateTimeFormat("en-GB", {
-      timeZone: "Europe/Berlin",
-      hour: "2-digit",
-      minute: "2-digit",
-      timeZoneName: "short",
-    }).format(new Date());
-  }
-  let timer: ReturnType<typeof setInterval> | undefined;
-  document.addEventListener("astro:page-load", () => {
-    clearInterval(timer);
-    tick();
-    timer = setInterval(tick, 20_000);
-  });
-</script>
+  <Prompt cmd="cat about.txt">
+    <p>
+      Hi, I'm Imam. I build Python, Django, FastAPI, Celery, Redis and RabbitMQ backends with LLM-powered features,
+      modern frontends, and the cloud infrastructure behind them on AWS and Azure.
+    </p>
+    <p>
+      My work spans AI, energy trading, battery storage and enterprise software, turning complex business problems into
+      reliable, scalable solutions.
+    </p>
+  </Prompt>
+
+  <Prompt cmd="tail -3 news.log">
+    {
+      news.map((n) => (
+        <p class="!mt-0">
+          <span class="c-green">[{n.date}]</span> {n.text}
+        </p>
+      ))
+    }
+  </Prompt>
+
+  <Prompt cmd="cat focus.md">
+    <ul class="md-list">
+      {
+        focusAreas.map((a) => (
+          <li>
+            <span class="c-yellow font-bold">{a.title}</span>: {a.desc}
+          </li>
+        ))
+      }
+    </ul>
+  </Prompt>
+
+  <Prompt cmd="ls -l ~/projects">
+    <p class="dim">total {selectedWork.length}</p>
+    {
+      selectedWork.map((w) => (
+        <div class="ls-row">
+          <span class="ls-perm dim">drwxr-xr-x</span>
+          <span class="dim">{w.period}</span>
+          <span>
+            <a href={withBase("/projects")} class="!no-underline hover:!underline">
+              <span class="c-blue font-bold">{w.name}/</span>
+            </a>{" "}
+            <span class="dim">
+              # {w.title}, {w.company}
+            </span>
+          </span>
+        </div>
+      ))
+    }
+    <p class="dim mt-2">
+      → <a href={withBase("/projects")}>cd ~/projects</a> to see everything
+    </p>
+  </Prompt>
+
+  <Prompt cmd="echo $STACK">
+    <p class="c-green">{coreStack.join(" ")}</p>
+  </Prompt>
+
+  <Prompt cmd="cat contact.txt">
+    <div class="grid grid-cols-[10ch_1fr] gap-x-2">
+      <span class="c-yellow">email</span><a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+      {
+        socials.map((s) => (
+          <>
+            <span class="c-yellow">{s.label.split(" ")[0].toLowerCase()}</span>
+            <a href={s.href} target="_blank" rel="noopener" class="break-all">
+              {s.href.replace(/^https:\/\/(www\.)?/, "")}
+            </a>
+          </>
+        ))
+      }
+    </div>
+  </Prompt>
+</BaseLayout>

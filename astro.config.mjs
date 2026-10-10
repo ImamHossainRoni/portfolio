@@ -10,5 +10,7 @@ export default defineConfig({
   site: process.env.SITE_URL || 'https://imamhossainroni.me',
   base: process.env.BASE_PATH || '/',
   build: { assets: 'assets' },
+  // The dev toolbar floats over the terminal window; we don't use it.
+  devToolbar: { enabled: false },
   integrations: [mdx(), sitemap(), tailwind({ applyBaseStyles: false })]
 });

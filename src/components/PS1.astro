@@ -1,0 +1,7 @@
+---
+// The agnoster prompt: powerline segments for last status (✘), directory and git branch.
+// `live` renders the ✘ segment hidden so the shell script can switch it on after a failed command.
+const { dir = "~", failed = false, live = false } = Astro.props;
+---
+
+{(failed || live) && <span class="seg seg-status" hidden={!failed}>✘</span>}<span class="seg seg-dir">{dir}</span><span class="seg seg-git"><svg class="branch" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3v10M5 9c0-3 6-2 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /><circle cx="11" cy="3" r="1.6" fill="currentColor" /></svg>main</span>

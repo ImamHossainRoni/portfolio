@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1200" preserveAspectRatio="xMidYMid slice">
+  <!-- An original, macOS-style dark wallpaper: layered ribbons of colour. Gradients only (no blur filters), so it renders smoothly everywhere. -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#120d2b" />
+      <stop offset="0.6" stop-color="#1a1240" />
+      <stop offset="1" stop-color="#06131f" />
+    </linearGradient>
+    <radialGradient id="glowA" cx="0.76" cy="0.2" r="0.35">
+      <stop offset="0" stop-color="#d35bb0" stop-opacity="0.45" />
+      <stop offset="1" stop-color="#d35bb0" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="glowB" cx="0.18" cy="0.85" r="0.4">
+      <stop offset="0" stop-color="#1aa0b8" stop-opacity="0.35" />
+      <stop offset="1" stop-color="#1aa0b8" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="w1" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#5b3fd1" />
+      <stop offset="0.5" stop-color="#9a4fd8" />
+      <stop offset="1" stop-color="#e0679b" />
+    </linearGradient>
+    <linearGradient id="w2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#1f6fd1" />
+      <stop offset="0.6" stop-color="#4a54d6" />
+      <stop offset="1" stop-color="#8a45c9" />
+    </linearGradient>
+    <linearGradient id="w3" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#0f8fa8" />
+      <stop offset="0.5" stop-color="#1d5fbf" />
+      <stop offset="1" stop-color="#3a3aa8" />
+    </linearGradient>
+    <linearGradient id="w4" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#0b3a5c" />
+      <stop offset="1" stop-color="#1c1450" />
+    </linearGradient>
+    <!-- Shade under each crest so every wave reads as a lit ribbon. -->
+    <linearGradient id="shade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#05060c" stop-opacity="0" />
+      <stop offset="0.35" stop-color="#05060c" stop-opacity="0.75" />
+      <stop offset="1" stop-color="#05060c" stop-opacity="0.95" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1200" fill="url(#sky)" />
+  <rect width="1920" height="1200" fill="url(#glowA)" />
+  <rect width="1920" height="1200" fill="url(#glowB)" />
+
+  <path d="M0 520 C 320 380 620 640 960 520 S 1600 300 1920 440 L1920 1200 L0 1200 Z" fill="url(#w1)" />
+  <path d="M0 520 C 320 380 620 640 960 520 S 1600 300 1920 440 L1920 1200 L0 1200 Z" fill="url(#shade)" />
+  <path d="M0 660 C 360 540 700 800 1040 680 S 1640 500 1920 620 L1920 1200 L0 1200 Z" fill="url(#w2)" />
+  <path d="M0 660 C 360 540 700 800 1040 680 S 1640 500 1920 620 L1920 1200 L0 1200 Z" fill="url(#shade)" />
+  <path d="M0 800 C 300 720 680 940 1020 840 S 1620 700 1920 790 L1920 1200 L0 1200 Z" fill="url(#w3)" />
+  <path d="M0 800 C 300 720 680 940 1020 840 S 1620 700 1920 790 L1920 1200 L0 1200 Z" fill="url(#shade)" />
+  <path d="M0 950 C 380 880 760 1060 1120 980 S 1700 880 1920 950 L1920 1200 L0 1200 Z" fill="url(#w4)" />
+  <path d="M0 950 C 380 880 760 1060 1120 980 S 1700 880 1920 950 L1920 1200 L0 1200 Z" fill="url(#shade)" />
+</svg>

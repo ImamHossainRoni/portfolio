@@ -1,8 +1,8 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
-import Nav from "../components/Nav.astro";
-import Footer from "../components/Footer.astro";
+import PS1 from "../components/PS1.astro";
 import { ViewTransitions } from "astro:transitions";
+import { pages, socials, EMAIL } from "../lib/links";
 
 import { SITE_TITLE, SITE_DESCRIPTION, TRANSITION_API } from "../config";
 
@@ -12,10 +12,29 @@ const {
   description = SITE_DESCRIPTION,
   sideBarActiveItemID,
   ogType,
-  // Pages built for the new layout lay out their own full-width sections;
-  // anything else (e.g. the store pages) gets a plain readable column.
-  wide = false,
 } = Astro.props;
+
+const current = pages.find((p) => p.id === sideBarActiveItemID);
+const dir = current?.dir ?? "~";
+
+// Everything the in-browser shell needs to know, handed over as JSON.
+const shellData = JSON.stringify({
+  dir,
+  email: EMAIL,
+  pages: Object.fromEntries(pages.map((p) => [p.id, p.href])),
+  socials: Object.fromEntries(socials.map((s) => [s.label.split(" ")[0].toLowerCase(), s.href])),
+});
+
+const lastLogin = new Date().toLocaleString("en-US", {
+  weekday: "short",
+  month: "short",
+  day: "numeric",
+  hour: "2-digit",
+  minute: "2-digit",
+  second: "2-digit",
+  hour12: false,
+  timeZone: "Europe/Berlin",
+});
 ---
 
 <!doctype html>
@@ -24,36 +43,237 @@ const {
     <BaseHead title={title} description={description} image={image} ogType={ogType} />
     {TRANSITION_API && <ViewTransitions />}
   </head>
-  <body class="min-h-screen">
-    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[70] btn-ink">Skip to content</a>
-    <Nav active={sideBarActiveItemID} />
-    <main id="main">
-      {wide ? <slot /> : <div class="wrap max-w-[900px] pt-10"><slot /></div>}
-    </main>
-    <Footer />
+  <body>
+    <div class="term">
+      <div class="term-bar">
+        <div class="lights" aria-hidden="true"><span></span><span></span><span></span></div>
+        <div class="term-title">roni — {dir} — -zsh — 80×24</div>
+      </div>
+
+      <nav class="term-tabs no-print" aria-label="Main">
+        {
+          pages.map((p) => (
+            <a href={p.href} aria-current={p.id === sideBarActiveItemID ? "page" : undefined}>
+              {p.dir}
+            </a>
+          ))
+        }
+      </nav>
+
+      <main class="term-body" id="main" data-term>
+        <p class="dim">Last login: <span data-last-login>{lastLogin}</span> on ttys000</p>
+
+        <slot />
+
+        <div data-history></div>
+
+        <p class="dim mt-6 no-print" data-tip>
+          Tip: this prompt works. Type <span class="c-green">help</span> and press Enter.
+        </p>
+        <form class="shell-line no-print" data-shell autocomplete="off">
+          <label for="shell-input" class="prompt !m-0 shrink-0" data-ps1><PS1 dir={dir} live /></label>
+          <input id="shell-input" type="text" spellcheck="false" autocapitalize="off" enterkeyhint="go" aria-label="Type a command" />
+        </form>
+      </main>
+    </div>
+
+    <script type="application/json" id="shell-data" set:html={shellData} />
 
     <script>
-      // Fade sections in as they scroll into view.
-      function reveal() {
-        const els = document.querySelectorAll("[data-reveal]:not(.is-in)");
-        if (!("IntersectionObserver" in window)) {
-          els.forEach((el) => el.classList.add("is-in"));
-          return;
-        }
-        const io = new IntersectionObserver(
-          (entries) => {
-            for (const e of entries) {
-              if (e.isIntersecting) {
-                e.target.classList.add("is-in");
-                io.unobserve(e.target);
-              }
-            }
-          },
-          { rootMargin: "0px 0px -8% 0px" },
-        );
-        els.forEach((el) => io.observe(el));
+      type Data = { dir: string; email: string; pages: Record<string, string>; socials: Record<string, string> };
+      const data: Data = JSON.parse(document.getElementById("shell-data")!.textContent!);
+
+      const term = document.querySelector<HTMLElement>("[data-term]")!;
+      const form = document.querySelector<HTMLFormElement>("[data-shell]")!;
+      const input = form.querySelector("input")!;
+      const historyEl = document.querySelector<HTMLElement>("[data-history]")!;
+      const ps1 = document.querySelector<HTMLElement>("[data-ps1]")!;
+      const statusSeg = ps1.querySelector<HTMLElement>(".seg-status")!;
+
+      // Set by a command that fails; the next prompt then shows a red ✘, like agnoster does.
+      let failed = false;
+
+      // "Last login" shows the visitor's own clock, like the real thing.
+      const login = document.querySelector("[data-last-login]");
+      if (login) {
+        login.textContent = new Date().toLocaleString("en-US", {
+          weekday: "short",
+          month: "short",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
+        });
       }
-      document.addEventListener("astro:page-load", reveal);
+
+      // Clicking anywhere in the terminal focuses the prompt (unless you're selecting text or clicking a link).
+      // Mouse only: on phones a stray tap shouldn't pop up the keyboard.
+      term.addEventListener("click", (e) => {
+        if (!matchMedia("(pointer: fine)").matches) return;
+        if ((e.target as Element).closest("a, button, input")) return;
+        if (window.getSelection()?.toString()) return;
+        input.focus({ preventScroll: true });
+      });
+
+      // Where `cd` / `cat` / `open` can go.
+      const routes: Record<string, string> = {
+        "~": data.pages.home,
+        home: data.pages.home,
+        projects: data.pages.projects,
+        resume: data.pages.cv,
+        "resume.md": data.pages.cv,
+        cv: data.pages.cv,
+        writing: data.pages.blog,
+        "writing.md": data.pages.blog,
+        blog: data.pages.blog,
+      };
+
+      const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]!);
+      const link = (href: string, text = href) => `<a href="${href}" target="_blank" rel="noopener">${esc(text)}</a>`;
+
+      const commands: Record<string, (args: string[]) => string | void> = {
+        help: () =>
+          [
+            "Available commands:",
+            "",
+            '  <span class="c-green">ls</span>                list what is here',
+            '  <span class="c-green">cd</span> &lt;dir&gt;          go to ~, projects, resume or writing',
+            '  <span class="c-green">cat</span> &lt;file&gt;        read a file (try: cat contact.txt)',
+            '  <span class="c-green">whoami</span>            who is this?',
+            '  <span class="c-green">contact</span>           how to reach me',
+            '  <span class="c-green">github</span> | <span class="c-green">linkedin</span> | <span class="c-green">stackoverflow</span> | <span class="c-green">hashnode</span>',
+            '  <span class="c-green">date</span>              time in Frankfurt',
+            '  <span class="c-green">clear</span>             clear the screen',
+            "",
+            '<span class="dim">Use ↑/↓ for history and Tab to complete.</span>',
+          ].join("\n"),
+        ls: () =>
+          '<span class="c-blue font-bold">projects/</span>  <span class="c-blue font-bold">resume/</span>  <span class="c-blue font-bold">writing/</span>  about.txt  contact.txt',
+        whoami: () => "Imam Hossain Roni — Full-Stack Software Engineer, Frankfurt am Main, Germany",
+        pwd: () => data.dir.replace("~", "/Users/roni"),
+        cd: (args) => go(args[0] ?? "~", "cd"),
+        open: (args) => go(args[0] ?? "~", "open"),
+        cat: (args) => {
+          const f = args[0];
+          if (!f) return "usage: cat &lt;file&gt;";
+          if (f === "contact.txt") return commands.contact([]);
+          if (f === "about.txt") return go("~", "cat");
+          return go(f, "cat");
+        },
+        contact: () =>
+          [
+            `email     ${link("mailto:" + data.email, data.email)}`,
+            `github    ${link(data.socials.github)}`,
+            `linkedin  ${link(data.socials.linkedin)}`,
+          ].join("\n"),
+        email: () => {
+          location.href = "mailto:" + data.email;
+          return `Opening mail to ${esc(data.email)}…`;
+        },
+        date: () =>
+          new Date().toLocaleString("en-GB", { timeZone: "Europe/Berlin", dateStyle: "full", timeStyle: "short" }) + " (Frankfurt)",
+        echo: (args) => esc(args.join(" ")),
+        clear: () => {
+          // Hide everything printed so far, the way `clear` would.
+          for (const el of Array.from(term.children)) {
+            if (el !== form) (el as HTMLElement).hidden = true;
+          }
+          historyEl.innerHTML = "";
+          historyEl.hidden = false;
+        },
+        history: () => past.map((c, i) => `  ${String(i + 1).padStart(3)}  ${esc(c)}`).join("\n"),
+        sudo: () => "roni is not in the sudoers file. This incident will be reported.",
+        exit: () => "Saving session...completed. (Just kidding, stay as long as you like.)",
+        vim: () => "You can check out any time you like, but you can never leave. Try <span class=\"c-green\">help</span> instead.",
+      };
+      for (const name of ["github", "linkedin", "stackoverflow", "hashnode"]) {
+        commands[name] = () => {
+          const url = data.socials[name === "stackoverflow" ? "stack" : name];
+          window.open(url, "_blank", "noopener");
+          return `Opening ${link(url)}`;
+        };
+      }
+
+      function go(target: string, verb: string) {
+        const key = target.replace(/^~\//, "").replace(/\/$/, "") || "~";
+        const href = routes[key];
+        if (!href) {
+          failed = true;
+          return verb === "cd"
+            ? `cd: no such file or directory: ${esc(target)}`
+            : `${verb}: ${esc(target)}: No such file or directory`;
+        }
+        location.href = href;
+        return "";
+      }
+
+      // Command history (↑/↓), kept for this visit.
+      const past: string[] = [];
+      let cursor = 0;
+
+      function print(cmd: string, html: string | void) {
+        const block = document.createElement("div");
+        const promptLine = document.createElement("div");
+        promptLine.className = "prompt";
+        // Echo the prompt exactly as it looked when the command was typed.
+        promptLine.innerHTML = ps1.innerHTML + ` <span class="p-cmd">${esc(cmd)}</span>`;
+        block.appendChild(promptLine);
+        if (html) {
+          const out = document.createElement("div");
+          out.className = "out whitespace-pre-wrap";
+          out.innerHTML = html;
+          block.appendChild(out);
+        }
+        historyEl.appendChild(block);
+      }
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const raw = input.value.trim();
+        input.value = "";
+        document.querySelector<HTMLElement>("[data-tip]")?.setAttribute("hidden", "");
+        if (raw) {
+          past.push(raw);
+          cursor = past.length;
+        }
+        const [name, ...args] = raw.split(/\s+/);
+        if (!name) return print("", "");
+        if (name === "clear") return commands.clear([]);
+        const run = commands[name.toLowerCase()];
+        failed = !run;
+        print(raw, run ? run(args) : `zsh: command not found: ${esc(name)}`);
+        statusSeg.hidden = !failed;
+        input.scrollIntoView({ block: "nearest" });
+      });
+
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowUp" && past.length) {
+          e.preventDefault();
+          cursor = Math.max(0, cursor - 1);
+          input.value = past[cursor];
+        } else if (e.key === "ArrowDown" && past.length) {
+          e.preventDefault();
+          cursor = Math.min(past.length, cursor + 1);
+          input.value = past[cursor] ?? "";
+        } else if (e.key === "Tab" && input.value.trim()) {
+          // Complete the last word against command names (first word) or places/files (later words).
+          e.preventDefault();
+          const parts = input.value.split(" ");
+          const word = parts[parts.length - 1];
+          const pool = parts.length === 1 ? Object.keys(commands) : [...Object.keys(routes), "about.txt", "contact.txt"];
+          const hits = pool.filter((c) => c.startsWith(word));
+          if (hits.length === 1) {
+            parts[parts.length - 1] = hits[0];
+            input.value = parts.join(" ") + (parts.length === 1 ? " " : "");
+          } else if (hits.length > 1) {
+            print(input.value, hits.join("  "));
+          }
+        } else if (e.key === "l" && e.ctrlKey) {
+          e.preventDefault();
+          commands.clear([]);
+        }
+      });
     </script>
   </body>
 </html>
